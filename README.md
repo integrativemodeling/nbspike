@@ -23,7 +23,7 @@ Nanobody names in this repository are simplified versions of those used in the [
 
 ### ```nblib```
 
-This is a nanobody epitope modeling library written using IMP and PMI. It contains:
+This is an integrative epitope modeling module written using IMP and PMI. It contains:
 
 - ```restraints``` : Computationally efficient receptor-ligand shape complementarity restraints optimized for receptor epitopes and antibody-like paratopes (i.e. CDR loops)
 - ```epitopelib``` Provides a very fast (cythonized) implementation of the **fcc** metric, commonly used for comparing interfaces in rigid-rigid docking. The cython file contained here is called ```epitopelib.pyx```. Please run ```cd nblib && cythonize -i epitopelib.pyx``` to produce the ```.so``` library which can then be ```import``` -ed into python. 
@@ -49,10 +49,7 @@ MODELLER scripts and top scoring comparative models of all 21 nanobodies both be
 
   - ```data``` : Contains sequences of RBD, ectodomain and all modeled nanobodies, cryo-EM structures of spike RBD and ectodomain and comparative models of nanobodies (```data/pdb```), PMI topology files (```data/topology```), crosslinks (```data/xl```) list of viral escape mutants and the CDR regions of the corresponding nanobodies (```data/escape_mutant```), and configuration (json) files for modeling each binary receptor-nanobody complex that contains multiplicative weights for the different restraints used in modeling (```data/config```). 
 
-  - ```results```: 
-    - ```binary_complexes```: Contains PDB structures of 21 nanobodies on different parts of the spike. In each of these files, the nanobody is chain "A" and the spike is chain "0" (RBD monomer) or chains "1", "2" and "3" (ectodomain trimer). Structural sampling and clustering produces rigidly-docked binary complexes in the RMF file format. Subsequently  an utility in ```nblib.graphics``` converts the RMF to a PDB file. Binary complex pdb files are named as [receptor]_[ligand].pdb where receptor is one of rbd, ntd or ectodomain and ligand names are as column 1 in the table above.
-    
-    - ```chimerax_rendering``` - UCSF ChimeraX scripts for rendering all nanobody epitopes simultaneously on the spike surface. Used to generate Fig 6 in the paper.
+  - ```results```: Contains PDB structures of 21 nanobodies on different parts of the spike. In each of these files, the nanobody is chain "A" and the spike is chain "0" (RBD monomer) or chains "1", "2" and "3" (ectodomain trimer). Structural sampling and clustering produces rigidly-docked binary complexes in the RMF file format. Subsequently  an utility in ```nblib.graphics``` converts the RMF to a PDB file. Binary complex pdb files are named as [receptor]_[ligand].pdb where receptor is one of rbd, ntd or ectodomain and ligand names are as column 1 in the table above. ```results/chimerax_rendering``` contains ChimeraX scripts for rendering all nanobody epitopes simultaneously on the spike surface. Used to generate Fig 6 in the paper.
 
 <br>
 
