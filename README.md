@@ -9,13 +9,13 @@ This repository contains comparative models of 21 nanobodies and integrative mod
 Both the receptor and nanobodies in this work have been coarse-grained at a single residue per coarse-grained bead, and subsequently subjected to rigid-rigid docking. Thus the exact orientation of the nanobody on the spike surface maybe noisy and need future refinements. *The focus of this exercise is thus to predict a comprehensive epitope on the spike surface that is maximally consistent with input crosslink and escape data*.
 
 Nanobody names in this repository are simplified versions of those used in the [paper](https://elifesciences.org). 
-
+    
 | Nanobody name in this repository | Nanobody name in paper |                   x                   |
 | :------------------------------: | :--------------------: | :-----------------------------------: |
-|              rbd-x               |        S1-RBD-x        | 9, 15, 16, 21, 22, 23, 24, 29, 35, 40 |
+|              rbd-x               |         S1-RBD-x          | 9, 15, 16, 21, 22, 23, 24, 29, 35, 40 |
 |               s1-x               |          S1-x          |   1, 6, 23, 36, 37, 46, 48, 49, 62    |
 |               s2-x               |          S2-x          |                10, 40                 |
-
+    
 <br> 
 
 ## List of files and directories:
@@ -26,13 +26,16 @@ Nanobody names in this repository are simplified versions of those used in the [
 This is a nanobody epitope modeling library written using IMP and PMI. It contains:
 
 - ```restraints``` : Computationally efficient receptor-ligand shape complementarity restraints optimized for receptor epitopes and antibody-like paratopes (i.e. CDR loops)
-- ```epitopelib``` Provides a very fast (cythonized) implementation of the **fcc** metric, commonly used for comparing interfaces in rigid-rigid docking. The cython file contained here is called ```epitopelib.pyx```. Please run <code> cythonize -i epitopelib.pyx</code> to produce the ```.so``` library which can then be ```import``` -ed into python. 
+- ```epitopelib``` Provides a very fast (cythonized) implementation of the **fcc** metric, commonly used for comparing interfaces in rigid-rigid docking. The cython file contained here is called ```epitopelib.pyx```. Please run ```cd nblib && cythonize -i epitopelib.pyx``` to produce the ```.so``` library which can then be ```import``` -ed into python. 
 - ```clustering```: Provides a ```networkx``` - based implementation of the [Taylor-Butina algorithm for clustering binary interfaces](https://onlinelibrary.wiley.com/doi/10.1002/prot.24078).
 - ```restraint_satisfaction``` : Tools for checking satisfaction of restraints used in modeling.
 - ```graphics```: Various tools for converting RMF to PDB files and writing ChimeraX scripts for rendering figures.
 - ```utils```: Miscellaneous utilities used throughout the project.
 
-- **```comparative_modeling```** : MODELLER scripts and top scoring comparative models of all 21 nanobodies both before and after loop refinement.  All 21 nanobodies are modelled from the [human Vsig4 targeting nanobody Nb119](https://www.rcsb.org/structure/5IML).
+<br>
+
+### ```comparative_modeling```
+MODELLER scripts and top scoring comparative models of all 21 nanobodies both before and after loop refinement. All 21 nanobodies are modelled from the [human Vsig4 targeting nanobody Nb119](https://www.rcsb.org/structure/5IML).
 
 <br>
 
@@ -47,9 +50,9 @@ This is a nanobody epitope modeling library written using IMP and PMI. It contai
   - ```data``` : Contains sequences of RBD, ectodomain and all modeled nanobodies, cryo-EM structures of spike RBD and ectodomain and comparative models of nanobodies (```data/pdb```), PMI topology files (```data/topology```), crosslinks (```data/xl```) list of viral escape mutants and the CDR regions of the corresponding nanobodies (```data/escape_mutant```), and configuration (json) files for modeling each binary receptor-nanobody complex that contains multiplicative weights for the different restraints used in modeling (```data/config```). 
 
   - ```results```: 
-    - Contains PDB structures of 21 nanobody-spike complexes. In each of these files, the nanobody is chain "A" and the spike is chain "0" (RBD monomer) or chains "1", "2" and "3" (ectodomain trimer). Structural sampling and clustering produces rigidly-docked binary complexes in the RMF file format. Subsequently  an utility in ```nblib.graphics``` converts the RMF to a PDB file.  PDB files are named as [receptor]_[ligand].pdb where receptor names are  rbd or ntd or ectodomain and ligand names are listed in column 1 of the table above.
+    - ```binary_complexes```: Contains PDB structures of 21 nanobodies on different parts of the spike. In each of these files, the nanobody is chain "A" and the spike is chain "0" (RBD monomer) or chains "1", "2" and "3" (ectodomain trimer). Structural sampling and clustering produces rigidly-docked binary complexes in the RMF file format. Subsequently  an utility in ```nblib.graphics``` converts the RMF to a PDB file. Binary complex pdb files are named as [receptor]_[ligand].pdb where receptor is one of rbd, ntd or ectodomain and ligand names are as column 1 in the table above.
     
-    - ```chimerax_rendering``` - UCSF ChimeraX scripts for rendering all nanobody epitopes simultaneously on the spike surface. Used to generate Fig 6 in the paper. 
+    - ```chimerax_rendering``` - UCSF ChimeraX scripts for rendering all nanobody epitopes simultaneously on the spike surface. Used to generate Fig 6 in the paper.
 
 <br>
 
