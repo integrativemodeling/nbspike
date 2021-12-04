@@ -51,13 +51,6 @@ This is a nanobody epitope modeling library written using IMP and PMI. It contai
     
     - ```chimerax_rendering``` - UCSF ChimeraX scripts for rendering all nanobody epitopes simultaneously on the spike surface. Used to generate Fig 6 in the paper. 
 
-
-<br>
-
-### ```example```
-
-A simple jupyter notebook tutorial that takes one through a epitope modeling exercise using crosslinks and escape mutation information for the s1-23 nanobody epitope on the spike-RBD.
-
 <br>
 
 ## Information
