@@ -1,0 +1,32 @@
+original -> IC50 value taken from table in the paper Supplementary
+
+transformed -> -log10(IC50)
+
+transformed+scaled -> (-log10(IC50) - minval) / (maxval - minval)
+where minval and maxval are min and max values of the -log10(IC50)s
+
+heatmaps have been generated using the transformed values (not the scaled ones)
+-------------------------------------------------------------------------------
+
+RBD-9,  original:  522.000,  transformed: -2.718, transformed+scaled: 0.204
+RBD-11, original:   13.500,  transformed: -1.130, transformed+scaled: 0.828
+RBD-15, original:    5.290,  transformed: -0.723, transformed+scaled: 0.989
+RBD-16, original:   79.200,  transformed: -1.899, transformed+scaled: 0.526
+RBD-21, original:   14.100,  transformed: -1.149, transformed+scaled: 0.821
+RBD-22, original:  100.000,  transformed: -2.000, transformed+scaled: 0.486
+RBD-23, original:    7.310,  transformed: -0.864, transformed+scaled: 0.933
+RBD-24, original:  218.000,  transformed: -2.338, transformed+scaled: 0.353
+RBD-29, original:    9.530,  transformed: -0.979, transformed+scaled: 0.888
+RBD-35, original:    12.300, transformed: -1.090, transformed+scaled: 0.844
+RBD-40, original:    25.600, transformed: -1.408, transformed+scaled: 0.719
+   S1-1, original:    6.740, transformed: -0.829, transformed+scaled: 0.947
+   S1-6, original:   56.100, transformed: -1.749, transformed+scaled: 0.585
+  S1-23, original:    5.700, transformed: -0.756, transformed+scaled: 0.976
+  S1-36, original:   48.500, transformed: -1.686, transformed+scaled: 0.610
+  S1-37, original:    7.540, transformed: -0.877, transformed+scaled: 0.928
+  S1-46, original:  312.000, transformed: -2.494, transformed+scaled: 0.292
+  S1-48, original:    5.820, transformed: -0.765, transformed+scaled: 0.972
+  S1-62, original:    4.950, transformed: -0.695, transformed+scaled: 1.000
+  S1-49, original:  356.000, transformed: -2.551, transformed+scaled: 0.269
+  S2-10, original: 1718.000, transformed: -3.235, transformed+scaled: 0.000
+  S2-40, original: 1712.000, transformed: -3.234, transformed+scaled: 0.001

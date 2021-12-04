@@ -6,15 +6,9 @@
 
 This repository contains comparative models of 21 nanobodies and integrative models of their epitopes on the receptor-binding (RBD) and ectodomains of the SARS-CoV-2 spike protein. Epitopes were modelled using chemical crosslinks and escape mutagenesis data. Both receptor (spike protein) and nanobodies were represented as completely rigid subunits. This work develops a computationally efficient shape complementarity restraint focused around the escape mutant residues, distance restraints between nanobody CDR loops and viral escape residues and a modified interface-metric (inspired by the [fcc metric](https://onlinelibrary.wiley.com/doi/10.1002/prot.24078)) for clustering alternate models from structural sampling.
 
-Nanobody names in this repository are simplified versions of those used in the [paper](https://elifesciences.org). 
+Both the receptor and nanobodies in this work have been coarse-grained at a single residue per coarse-grained bead, and subsequently subjected to rigid-rigid docking. Thus the exact orientation of the nanobody on the spike surface maybe noisy and need future refinements. *The focus of this exercise is thus to predict a comprehensive epitope on the spike surface that is maximally consistent with input crosslink and escape data*.
 
-| Nanobody name in this repository | Nanobody name in paper |                   x                   |
-| :------------------------------: | :--------------------: | :-----------------------------------: |
-|              rbd-x               |         RBD-x          | 9, 15, 16, 21, 22, 23, 24, 29, 35, 40 |
-|               s1-x               |          S1-x          |   1, 6, 23, 36, 37, 46, 48, 49, 62    |
-|               s2-x               |          S2-x          |                10, 40                 |
-
-
+<br> 
 
 ## List of files and directories:
 <br>
@@ -39,15 +33,30 @@ This is a nanobody epitope modeling library written using IMP and PMI. It contai
   Contains scripts that use the ```nblib``` module to structurally sample, cluster and calculate restraint satisfaction for nanobody binding modes on the spike protein. Sub-folders:
 
   - ```scripts```: Python scripts for sampling binding models and subsequent analysis.
+
   - ```wynton_job_scripts```: SGE scripts used to run structural sampling on the [UCSF Wynton compute cluster](https://wynton.ucsf.edu/hpc/). 
+
   - ```data``` : Contains sequences of RBD, ectodomain and all modeled nanobodies, cryo-EM structures of spike RBD and ectodomain and comparative models of nanobodies (```data/pdb```), PMI topology files (```data/topology```), crosslinks (```data/xl```) list of viral escape mutants and the CDR regions of the corresponding nanobodies (```data/escape_mutant```), and configuration (json) files for modeling each binary receptor-nanobody complex that contains multiplicative weights for the different restraints used in modeling (```data/config```). 
-  - ```results```: Contains PDB structures of 21 nanobodies on different parts of the spike. In each of these files, the nanobody is chain "A" and the spike is chain "0" (RBD monomer) or chains "1", "2" and "3" (ectodomain trimer). Structural sampling and clustering produces rigidly-docked binary complexes in the RMF file format. Subsequently  an utility in ```nblib.graphics``` converts the RMF to a PDB file. 
-  - ```example_s1-23```: A simple jupyter notebook tutorial that takes one through a epitope modeling exercise using crosslinks and escape mutation information for the s1-23 nanobody epitope on the spike-RBD.
+
+  - ```results```: 
+    - ```binary_complexes```: Contains PDB structures of 21 nanobodies on different parts of the spike. In each of these files, the nanobody is chain "A" and the spike is chain "0" (RBD monomer) or chains "1", "2" and "3" (ectodomain trimer). Structural sampling and clustering produces rigidly-docked binary complexes in the RMF file format. Subsequently  an utility in ```nblib.graphics``` converts the RMF to a PDB file. Nanobody names in this repository are simplified versions of those used in the [paper](https://elifesciences.org). 
+    
+      | Nanobody name in this repository | Nanobody name in paper |                   x                   |
+      | :------------------------------: | :--------------------: | :-----------------------------------: |
+      |              rbd-x               |         RBD-x          | 9, 15, 16, 21, 22, 23, 24, 29, 35, 40 |
+      |               s1-x               |          S1-x          |   1, 6, 23, 36, 37, 46, 48, 49, 62    |
+      |               s2-x               |          S2-x          |                10, 40                 |
+    
+      
+    
+    - ```chimerax_rendering``` - UCSF ChimeraX scripts for rendering all nanobody epitopes simultaneously on the spike surface. Used to generate Fig 6 in the paper. 
+
 
 <br>
 
-### ```spike_ChimeraX_rendering```
-Contains a ChimeraX script that aligns nanobodies modeled on an isolated RBD to up and down RBDs of a candidate trimer spike structure and renders epitopes and epitope heatmaps (colored by neutralization IC50 values)
+### ```example```
+
+A simple jupyter notebook tutorial that takes one through a epitope modeling exercise using crosslinks and escape mutation information for the s1-23 nanobody epitope on the spike-RBD.
 
 <br>
 
@@ -55,7 +64,7 @@ Contains a ChimeraX script that aligns nanobodies modeled on an isolated RBD to 
 
 _Author(s)_: Tanmoy Sanyal
 
-_Date_: December XX, 2021
+_Date_: December 4, 2021
 
 _License_: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
 

@@ -1,0 +1,323 @@
+#-----------------------------------------
+# SPIKE TRIMER STRUCTURE BY VEESLER et. al
+# ----------------------------------------
+open ../../data/pdb/6vyb.pdb
+hide #1 ; ~cartoon 
+
+# render as surface
+surface #1/A,B,C
+
+# use a single neutral color for all receptors
+color #1/A,B,C silver
+
+# ------------------------
+# ACE2 bound RBD structure
+# ------------------------
+open ../../data/pdb/6m0j.pdb
+hide #2; ~cartoon
+
+# chain E in this structure is the RBD, which never needs to be visible
+# so only show chain "A" which is the ACE2 receptor (surface rendered)
+# if you don't want the ACE2 receptor displayed, comment the line below
+surface #2/A
+
+# align the RBD in the second structure to the up-RBD in the first
+match #2/E to #1/B
+
+# color ACE2
+color #2/A teal target s
+
+# mute the ACE2 color by making it a little transparent
+transparency #2/A 80 target s
+
+
+# -----------------
+# EPITOPES COLORED
+# -----------------
+# To keep ChimeraX from crashing, for each nanobody, the corresponding co-complex model is opened, the receptor is aligned to the spike, the epitope is colored, then the model is closed.
+# Model numbers #1 and #2 have already been assigned to 6vyb and 6m0j above. For each of the monomeric nanobody receptor epitopes below, three copies are opened and assigned model ids #3, #4, #5.
+# Model #3, #4, #5 are aligned to 6vyb chains A,B,C respectively.
+
+# Remember, that the up-RBD in the Veesler structure (i.e. model #1) is chain B, and the down-RBDs are chains A,C
+
+# In each of the nanobody docked models (i.e. #3, #4, #5, chain 0 is the receptor and chain A is the nanobody)
+
+# Epitopes are colored hotpink
+
+
+# S1-RBD-9 (up(B) + down(A))
+# --------
+open ../rbd_rbd-9.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_rbd-9.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_rbd-9.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+#sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-RBD-15 (up(B))
+# --------
+open ../rbd_rbd-15.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_rbd-15.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_rbd-15.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+#sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+#sel zone #5/A 6 #1/C:333-526; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-RBD-16 (up(B))
+# --------
+open ../rbd_rbd-16.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_rbd-16.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_rbd-16.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+#sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+#sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-RBD-21 (up(B) + down(C))
+# ---------
+open ../rbd_rbd-21.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_rbd-21.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_rbd-21.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+#sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-RBD-22 (up(B))
+# ---------
+open ../rbd_rbd-22.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_rbd-22.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_rbd-22.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+#sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+#sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-RBD-23 (up(B) + down(A,C))
+# ---------
+open ../rbd_rbd-23.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_rbd-23.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_rbd-23.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-RBD-24 (up(B))
+# ---------
+open ../rbd_rbd-24.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_rbd-24.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_rbd-24.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+#sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+#sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-RBD-29 (up(B) + down(C))
+# ---------
+open ../rbd_rbd-29.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_rbd-29.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_rbd-29.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+#sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-RBD-35 (up(B))
+# ---------
+# the Veesler structure 6vyb lacks a lot of structure in the up-RBD compared to the structure of RBD 6m0j, on which the modeling was done.
+# so it was necessary to use an epitope cutoff of 12 angstroms below to get a semblance of the S1-RBD-35 epitopes on the various RBDs on the spike.
+open ../rbd_rbd-35.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_rbd-35.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_rbd-35.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+#sel zone #3/A 12 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 12 #1/B:333-526 ; color sel hotpink ; ~sel
+#sel zone #5/A 12 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-RBD-40 (up(B) + down(A,C))
+# ---------
+open ../rbd_rbd-40.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_rbd-40.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_rbd-40.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-1 (up(B))
+# ----
+open ../rbd_s1-1.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_s1-1.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_s1-1.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+#sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+#sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-6 (up(B) + down(A,C))
+# ----
+open ../rbd_s1-6.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_s1-6.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_s1-6.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-23 (up(B) + down(A,C))
+# -----
+open ../rbd_s1-23.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_s1-23.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_s1-23.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-36 (up(B) + down(A,C))
+# -----
+open ../rbd_s1-36.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_s1-36.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_s1-36.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-37 (up(B) + down(A,C))
+# -----
+open ../rbd_s1-37.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_s1-37.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_s1-37.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-46 (up(B))
+# -----
+open ../rbd_s1-46.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_s1-46.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_s1-46.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+#sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+#sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-48 (up(B) + down(A,C))
+# -----
+open ../rbd_s1-48.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_s1-48.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_s1-48.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-49 (on all three NTDS (A,B,C))
+# -----
+open ../ntd_s1-49.pdb ; match #3/0 to #1/A:16-305
+open ../ntd_s1-49.pdb ; match #4/0 to #1/B:16-305
+open ../ntd_s1-49.pdb ; match #5/0 to #1/C:16-305
+hide #3,4,5; ~cartoon
+sel zone #3/A 6 #1/A:16-305 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:16-305 ; color sel hotpink ; ~sel
+sel zone #5/A 6 #1/C:16-305 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S1-62 (up(B) + down(A,C))
+# -----
+open ../rbd_s1-62.pdb ; match #3/0 to #1/A:333-526
+open ../rbd_s1-62.pdb ; match #4/0 to #1/B:333-526
+open ../rbd_s1-62.pdb ; match #5/0 to #1/C:333-526
+hide #3,4,5; ~cartoon
+sel zone #3/A 6 #1/A:333-526 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:333-526 ; color sel hotpink ; ~sel
+sel zone #5/A 6 #1/C:333-526 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S2-10 (on all three S2 monomers (A,B,C))
+# -----
+# S2-10 although modelled on the S2 trimer, localizes exclusively to one monomer (in this case chain 0)
+open ../ectodomain_s2-10.pdb ; match #3/0 to #1/A:689-1162
+open ../ectodomain_s2-10.pdb ; match #4/0 to #1/B:689-1162
+open ../ectodomain_s2-10.pdb ; match #5/0 to #1/C:689-1162
+hide #3,4,5; ~cartoon
+sel zone #3/A 6 #1/A:689-1162 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/B:689-1162 ; color sel hotpink ; ~sel
+sel zone #5/A 6 #1/C:689-1162 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# S2-40 (on all three clefts between monomer pairs (A,B), (B,C), (C,A))
+# -----
+open ../ectodomain_s2-40.pdb
+match #3/0 to #1/A:689-1162 ; match #3/1 to #1/B:689-1162 ; match #3/2 to #1/C:689-1162
+
+open ../ectodomain_s2-40.pdb
+match #4/0 to #1/A:689-1162 ; match #4/1 to #1/C:689-1162 ; match #4/2 to #1/B:689-1162
+
+open ../ectodomain_s2-40.pdb
+match #5/0 to #1/B:689-1162; match #5/1 to #1/C:689-1162 ; match #5/2 to #1/A:689-1162 
+
+hide #3,4,5; ~cartoon
+
+sel zone #3/A 6 #1/*:689-1162 ; color sel hotpink ; ~sel
+sel zone #4/A 6 #1/*:689-1162 ; color sel hotpink ; ~sel
+sel zone #5/A 6 #1/*:689-1162 ; color sel hotpink ; ~sel
+close #3,4,5
+
+
+# remove any remaining selections
+~sel
+
+# for extra muted-effect, make stuff transparent
+transparency #1 50 target s
+
+# -------
+# GLYCANS
+# -------
+surface #1/*:NAG
+color #1/*:NAG dark slate grey
+transparency #1/*:NAG 0
+
+set bgColor white
