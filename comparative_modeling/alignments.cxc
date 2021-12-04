@@ -1,0 +1,96 @@
+# UCSF ChimeraX scripts for comparing the nanobody homology models
+# aligning them along their framework regions
+
+open rbd-9/top_scoring_loop_refined_model.pdb
+open rbd-15/top_scoring_loop_refined_model.pdb
+open rbd-16/top_scoring_loop_refined_model.pdb
+open rbd-21/top_scoring_loop_refined_model.pdb
+open rbd-22/top_scoring_loop_refined_model.pdb
+open rbd-23/top_scoring_loop_refined_model.pdb
+open rbd-24/top_scoring_loop_refined_model.pdb
+open rbd-29/top_scoring_loop_refined_model.pdb
+open rbd-35/top_scoring_loop_refined_model.pdb
+open rbd-40/top_scoring_loop_refined_model.pdb
+
+open s1-1/top_scoring_loop_refined_model.pdb
+open s1-6/top_scoring_loop_refined_model.pdb
+open s1-23/top_scoring_loop_refined_model.pdb
+open s1-36/top_scoring_loop_refined_model.pdb
+open s1-37/top_scoring_loop_refined_model.pdb
+open s1-46/top_scoring_loop_refined_model.pdb
+open s1-48/top_scoring_loop_refined_model.pdb
+open s1-49/top_scoring_loop_refined_model.pdb
+open s1-62/top_scoring_loop_refined_model.pdb
+
+open s2-10/top_scoring_loop_refined_model.pdb
+open s2-40/top_scoring_loop_refined_model.pdb
+
+color dimgrey
+transparency 60 all target c
+
+color #1/A:1-2,99-115 rosy brown target c
+transparency #2/A:1-2,99-115 0 target c
+
+color #2/A:1-2,99-115 salmon target c
+transparency #4/A:1-2,99-115 0 target c
+
+color #3/A:1-2,99-115 firebrick target c
+transparency #5/A:1-2,99-115 0 target c
+
+color #4/A:1-2,99-115 sienna target c
+transparency #6/A:1-2,99-115 0 target c
+
+color #5/A:1-2,99-115 orange target c
+transparency #7/A:1-2,99-115 0 target c
+
+color #6/A:1-2,99-115 red target c
+transparency #8/A:1-2,99-115 0 target c
+
+color #7/A:1-2,99-115 orchid target c
+transparency #9/A:1-2,99-115 0 target c
+
+color #8/A:1-2,99-115 magenta target c
+transparency #10/A:1-2,99-115 0 target c
+
+color #9/A:1-2,99-115 khaki target c
+transparency #11/A:1-2,99-115 0 target c
+
+color #10/A:1-2,99-115 yellow target c
+transparency #14/A:1-2,99-115 0 target c
+
+color #11/A:1-2,99-115 sky blue target c
+transparency #15/A:1-2,99-115 0 target c
+
+color #12/A:1-2,99-115 steel blue target c
+transparency #17/A:1-2,99-115 0 target c
+
+color #13/A:1-2,99-115 blue target c
+transparency #18/A:1-2,99-115 0 target c
+
+color #14/A:1-2,99-115 lime green target c
+transparency #20/A:1-2,99-115 0 target c
+
+color #15/A:1-2,99-115 olive drab target c
+transparency #21/A:1-2,99-115 0 target c
+
+color #16/A:1-2,99-115 dark green target c
+transparency #22/A:1-2,99-115 0 target c
+
+color #17/A:1-2,99-115 cyan target c
+transparency #23/A:1-2,99-115 0 target c
+
+color #18/A:1-2,99-115 teal target c
+transparency #24/A:1-2,99-115 0 target c
+
+color #19/A:1-2,99-115 dim gray target c
+transparency #27/A:1-2,99-115 0 target c
+
+color #20/A:1-2,99-115 crimson target c
+transparency #28/A:1-2,99-115 0 target c
+
+color #21/A:1-2,99-115 forest green target c
+transparency #29/A:1-2,99-115 0 target c
+
+
+matchmaker #2-21/A to #1/A
+
