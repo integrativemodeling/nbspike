@@ -15,7 +15,7 @@ Nanobody names in this repository are simplified versions of those used in the [
 |              rbd-x               |         S1-RBD-x          | 9, 15, 16, 21, 22, 23, 24, 29, 35, 40 |
 |               s1-x               |          S1-x          |   1, 6, 23, 36, 37, 46, 48, 49, 62    |
 |               s2-x               |          S2-x          |                10, 40                 |
-    
+
 <br> 
 
 ## List of files and directories:
@@ -67,4 +67,4 @@ _Testable_: Yes.
 
 _Parallelizable_: Yes
 
-_Publications_:  Fred D. Mast, Peter C. Fridy, Natalia E. Ketaren, Junjie Wang, Erica Y. Jacobs, Jean Paul Olivier, Tanmoy Sanyal, Kelly R. Molloy, Fabian Schmidt, Magdalena Rutkowska, Yiska Weisblum, Lucille M. Rich, Elizabeth R. Vanderwall, Nicholas Dambrauskas, Vladimir Vigdorovich, Sarah Keegan, Jacob B Jiler, Milana E. Stein, Paul Dominic B. Olinares, Louis Herlands, Theodora Hatziioannou, D. Noah Sather, Jason S. Debley, David Fenyo, Andrej Sali, Paul D. Bieniasz, John D. Aitchison, Brian T. Chait, Michael P. Rout, [*Highly synergistic combinations of nanobodies that target SARS-CoV-2 and are resistant to escape*, eLife 2021; 10e73027](https://elifesciences.org)
+_Publications_:  Fred D. Mast, Peter C. Fridy, Natalia E. Ketaren, Junjie Wang, Erica Y. Jacobs, Jean Paul Olivier, Tanmoy Sanyal, Kelly R. Molloy, Fabian Schmidt, Magdalena Rutkowska, Yiska Weisblum, Lucille M. Rich, Elizabeth R. Vanderwall, Nicholas Dambrauskas, Vladimir Vigdorovich, Sarah Keegan, Jacob B Jiler, Milana E. Stein, Paul Dominic B. Olinares, Louis Herlands, Theodora Hatziioannou, D. Noah Sather, Jason S. Debley, David Fenyo, Andrej Sali, Paul D. Bieniasz, John D. Aitchison, Brian T. Chait, Michael P. Rout, [*Highly synergistic combinations of nanobodies that target SARS-CoV-2 and are resistant to escape*, eLife 2021; 10e73027](https://elifesciences.org/articles/73027)
