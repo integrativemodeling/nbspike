@@ -8,7 +8,7 @@ This repository contains comparative models of 21 nanobodies and integrative mod
 
 Both the receptor and nanobodies in this work have been coarse-grained at a single residue per coarse-grained bead, and subsequently subjected to rigid-rigid docking. Thus the exact orientation of the nanobody on the spike surface maybe noisy and need future refinements. *The focus of this exercise is thus to predict a comprehensive epitope on the spike surface that is maximally consistent with input crosslink and escape data*.
 
-Nanobody names in this repository are simplified versions of those used in the [paper](https://elifesciences.org). 
+Nanobody names in this repository are simplified versions of those used in the [paper](https://elifesciences.org/articles/73027). 
     
 | Nanobody name in this repository | Nanobody name in paper |                   x                   |
 | :------------------------------: | :--------------------: | :-----------------------------------: |
