@@ -3,7 +3,13 @@ Interface based clustering of docked nanobody models.
 """
 
 import os
-import tqdm
+try:
+    import tqdm
+except ImportError:
+    # Fall back to regular range() if tqdm.trange() is not available
+    class MockModule: pass
+    tqdm = MockModule()
+    tqdm.trange = range
 import itertools
 import pandas as pd
 import numpy as np
