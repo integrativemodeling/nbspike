@@ -1,4 +1,5 @@
 import os
+import sys
 import glob
 import shutil
 import subprocess
@@ -20,7 +21,7 @@ class Tests(unittest.TestCase):
         
         # run the modeling script
         os.chdir(MODELLER_DIR)
-        p = subprocess.check_call(["python", "modeling.py"])
+        p = subprocess.check_call([sys.executable, "modeling.py"])
         
         # check that 2 models before and 4 models after loop-refinement) have been computed
         models_1 = glob.glob(os.path.join(MODELLER_DIR, "s1-1.B9*.pdb"))
@@ -64,7 +65,8 @@ class Tests(unittest.TestCase):
 
         script = os.path.join(IMP_DIR, "scripts", "modeling.py")
         datadir = os.path.join(IMP_DIR, "data")
-        p = subprocess.check_call(["python", script, "-nb", "s1-23", "-d", datadir, "-t"])
+        p = subprocess.check_call([sys.executable, script, "-nb", "s1-23",
+                                   "-d", datadir, "-t"])
         
         rmf_fn_1 = os.path.join(outdir, "output_warmup", "rmfs", "0.rmf3")
         assert os.path.isfile(rmf_fn_1)
