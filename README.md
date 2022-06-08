@@ -1,5 +1,3 @@
-# Integrative models of neutralizing nanobody epitopes on the SARS-CoV-2 spike protein
-
 ![](epitopes.gif) 
 
 ## Summary
