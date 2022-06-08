@@ -1,7 +1,6 @@
 title: Nanobody epitopes on SARS-CoV-2 spike protein
 tags: [chemical crosslinks, escape mutations, nanobodies, cryo-EM, shape-complementarity, PMI]
 pmid: 33851164
-accessions: [PDBDEV_XXX, PDBDEV_YYY, ...]
 prereqs: [python/numpy, python/pandas, python/matplotlib, python/biopython, python/networkx, python/sklearn, python/hdbscan, modeller]
 test:
     runtime: 24h
