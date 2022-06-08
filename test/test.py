@@ -61,7 +61,10 @@ class Tests(unittest.TestCase):
         os.chdir(outdir)
         
         # add nblib path
-        os.environ["PYTHONPATH"] += ":" + os.path.abspath("../..")
+        if "PYTHONPATH" in os.environ:
+            os.environ["PYTHONPATH"] += ":" + os.path.abspath("../..")
+        else:
+            os.environ["PYTHONPATH"] = os.path.abspath("../..")
 
         script = os.path.join(IMP_DIR, "scripts", "modeling.py")
         datadir = os.path.join(IMP_DIR, "data")
