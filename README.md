@@ -61,7 +61,7 @@ _Date_: December 4, 2021
 
 _License_: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
 
-_Last known good IMP version_: [![build info](https://integrativemodeling.org/systems/37/badge.svg?branch=main)](https://integrativemodeling.org/systems/) [![build info](https://integrativemodeling.org/systems/37/badge.svg?branch=develop)](https://integrativemodeling.org/systems/)
+_Last known good IMP version_: [![build info](https://integrativemodeling.org/systems/38/badge.svg?branch=main)](https://integrativemodeling.org/systems/) [![build info](https://integrativemodeling.org/systems/38/badge.svg?branch=develop)](https://integrativemodeling.org/systems/)
 
 _Testable_: Yes.
 
