@@ -28,7 +28,7 @@ jobs:
         eval "$(conda shell.bash hook)"
         conda activate python${{ matrix.python-version }}
         # Need to build epitopelib for current version of Python
-        (cd nblib/epitopelib && ln -sf $(python -c 'import numpy; print(numpy.get_include())')/numpy && cythonize -f -i epitopelib.pyx)
+        (cd nblib/epitopelib && CFLAGS="-I$(python -c 'import numpy; print(numpy.get_include())')" cythonize -f -i epitopelib.pyx)
         cd test
         # Run a quick subset of all tests
         python test.py Tests.test_integrative_model
