@@ -1,0 +1,5 @@
+|molecule_name |color |fasta_fn |fasta_id |pdb_fn |chain |residue_range |pdb_offset |bead_size |em_residues_per_gaussian |rigid_body |super_rigid_body |chain_of_super_rigid_bodies |
+# NTD
+|ntd           |light gray        |spike_nanobody.fasta.txt    |wuhan_ntd |7ly3.A_modeller.pdb   |A  |16,305      |-15   |1   |0 |1  |||
+# Nanobodies
+|s1-49         |sky blue          |spike_nanobody.fasta.txt    |s1-49     |s1-49.pdb             |A  |1,END       |0     |1   |0 |2  |||

@@ -1,0 +1,23 @@
+open delta_heatmap.pdb
+
+hide
+~cartoon
+
+# render the interesting region of the RBD from the heatmapped model
+surface #1/A
+
+# render the heatmap
+color silver
+color bfactor #1/A:458,459,461,462,463,465 range 0,100 palette OrRd-5 ave residue
+
+# variant mutants
+color #1/A:19,156,157,222,158,452,478,614,681,950 navy target s
+
+# glycan
+surface #1/*:NAG
+color #1/*:NAG dark slate grey
+
+# scene settings
+set bgColor white
+lighting soft
+graphics silhouettes true

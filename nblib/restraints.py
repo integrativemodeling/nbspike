@@ -32,6 +32,103 @@ _COARSE_GRAINED_CONNOLLY_PROBE_RADIUS = 5.0 # A
 _COARSE_GRAINED_CONNOLLY_SURFACE_THICKNESS = 4.0 # A
 
 
+class SoftExcludedVolumeRestraint(RestraintBase):
+    """
+    Soft excluded volume restraint (implemented as a lower bound harmonic
+    function) between spherical particles, that allows particles to overlap
+    up-to a pre-specified distance.
+    """
+    
+    def __init__(self, root_hier, receptor_name, ligand_name, resolution=1,
+                 cutoff_distance=10.0, receptor_surface_thickness=1.5,
+                 kappa=1.0, weight=1.0, label=None):
+        """
+        Constructor.
+        
+        Args:
+        root_hier (IMP.hierarchy): Root hierarchy that provides access to all
+        particles in the system.
+        
+        receptor_name (str): Name of receptor molecule (chain).
+        
+        ligand_name (str): Name of ligand molecule (chain).
+        
+        resolution (float, optional): Coarse grained resolution. Defaults to 1
+        residue per bead.
+        
+        cutoff_distance (float, optional): Cutoff beyond which the restraint is
+        not applied. Defaults to 10.0 A.
+        
+        receptor_surface_thickness (float, optional): Maximum distance within
+        which spherical particles can overlap. Defaults to 1.5 A.
+        
+        kappa (float, optional): Strength of the restraint.
+        Defaults to 1.0 A^-2
+        
+        weight (float, optional): Relative weight of this restraint relative to
+        other restraints in the system. Defaults to 1.0.
+        
+        label (str, optional): Label for this restraint. Defaults to None.
+        """
+        
+        print("\nGenerating a soft excluded volume restraint between receptor %s and ligand %s" % (receptor_name, ligand_name))
+        
+        # IMP particles from receptor
+        receptor_sel = IMP.atom.Selection(root_hier,
+                                resolution=resolution,
+                                molecule=receptor_name)
+        ps_receptor_ = receptor_sel.get_selected_particles()
+        
+        # IMP particles from ligand
+        ligand_sel = IMP.atom.Selection(root_hier,
+                                resolution=resolution,
+                                molecule=ligand_name)
+        ps_ligand_ = ligand_sel.get_selected_particles()
+        
+        ps_receptor = [IMP.core.XYZR(p) for p in ps_receptor_]
+        ps_ligand = [IMP.core.XYZR(p) for p in ps_ligand_]
+        
+        # init parent class
+        model = ps_receptor[0].get_model()
+        name = "SoftExcludedVolumeScore_%s" % label
+        super().__init__(model, name=name, label=label, weight=weight)
+        
+        # close bipartite container between receptor and ligand
+        lsr = IMP.container.ListSingletonContainer(self.model)
+        lsr.add(ps_receptor)
+        
+        lsl = IMP.container.ListSingletonContainer(self.model)
+        lsl.add(ps_ligand)
+        
+        cpc = IMP.container.CloseBipartitePairContainer(
+            lsr, lsl, cutoff_distance, SLACK)
+        
+        # pair score
+        lb = IMP.core.HarmonicLowerBound(-receptor_surface_thickness, kappa)
+        sf = IMP.core.SphereDistancePairScore(lb)
+        
+        # restraint
+        restraint = IMP.container.PairsRestraint(sf, cpc)
+        self.rs.add_restraint(restraint)
+        
+        self._include_in_rmf = True
+        
+    def get_output(self):
+        """
+        Overloaded get_output() method of IMP.pmi.restraint.RestraintBase
+        that decides what gets output to stat files.
+        
+        Returns:
+        (dict): Dictionary of outputs for stat files.
+        """
+        
+        output = {}
+        score = self.evaluate()
+        output["_TotalScore"] = str(score)
+        output["SoftExcludedVolumeScore_" + self.label] = str(score)
+        return output
+    
+    
 class CrosslinkDistanceRestraint(RestraintBase):
     """
     Crosslink distance restraint (implemented as an upper bound harmonic
@@ -474,4 +571,199 @@ class EscapeMutationDistanceRestraint(RestraintBase):
         output["_TotalScore"] = str(score)
         output["EscapeMutationDistanceScore_" + self.label] = str(score)
         return output
+
+
+class LigandPairBindingRestraint(IMP.Restraint):
+    """
+    Restraint built from pairwise epitope binning of multiple ligands. Ligands
+    which share epitopes are assumed are attracted towards each other till
+    they overlap (minimally) within a pre-specified margin, while ligands
+    with distinct epitopes are restrained with excluded volume interactions
+    between them.
+    
+    This restraint first calculates a pair score for inter-ligand sphere overlap
+    and then uses a linear function to modulate the overall score according
+    to the pair score.
+    """
+    
+    def __init__(self, root_hier, ligand1_name, ligand2_name,
+                 bind_together=1, resolution=1, 
+                 kappa=1.0, slope=1.0, scale=1.0, cutoff_distance=10.0, 
+                 weight=1.0, label=None):
+        """
+        Constructor.
+        
+        Args:
+        root_hier (IMP.hierarchy): Root hierarchy that provides access to all
+        particles in the system.
+        
+        ligand1_name (str): Name of ligand molecule 1.
+        
+        ligand2_name (str): Name of ligand molecule 2.
+        
+        bind_together (int, optional): Zero (0) if the ligands don't bind
+        together (distinct epitopes) and 1 otherwise. Defaults to 1.
+        
+        resolution (float, optional): Coarse grained resolution.
+        Defaults to 1 residue per bead.
+        
+        kappa (float, optional): Strength of the underlying pair score.
+        Defaults to 1.0.
+        
+        slope (float, optional): Slope of the linear functional form
+        of this restraint. Defaults to 1.0.
+        
+        scale (float, optional): Scale factor for calculating the intercept
+        of the linear function for this restraint. Defaults to 1.0.
+        
+        cutoff_distance (float, optional): The total score is forced to zero
+        beyond this cutoff. Defaults to 10.0 A.
+        
+        weight (float, optional): Relative weight of this restraint relative to
+        other restraints in the system. Defaults to 1.0.
+        
+        label (str, optional): Label for this restraint. Defaults to None.
+        """
+        
+        # set some necessary attributes
+        self.label = label
+        self.weight = weight
+        self.overlap = 1.0 - float(bind_together)
+        self.slope = slope
+        
+        print("\nGenerating a new ligand pair binding restraint between molecules %s and %s" % (ligand1_name, ligand2_name))
+        
+        # IMP particles for molecule (ligand) 1
+        l1_sel = IMP.atom.Selection(root_hier, resolution=resolution,
+                                    molecule=ligand1_name)
+        ps1 = l1_sel.get_selected_particles()
+        
+        # IMP particles for molecule (ligand) 2
+        l2_sel = IMP.atom.Selection(root_hier, resolution=resolution,
+                                    molecule=ligand2_name)
+        ps2 = l2_sel.get_selected_particles()
+        
+        # init parent class
+        self._particles = ps1 + ps2
+        self.model = self._particles[0].get_model()
+        super().__init__(self.model, "LigandPairBindingScore %1%")
+        
+        # calculate intercept
+        self.intercept = self._estimate_intercept(ps1, ps2, kappa, scale)
+        
+        # (bipartite) close pair container (cpc) When given positive overlap,
+        # the particles should attract each other before they have some critical
+        # overlap, so cpc distance should be > 0
+        ls1 = IMP.container.ListSingletonContainer(self.model)
+        ls1.add(IMP.get_indexes(ps1))
+        
+        ls2 = IMP.container.ListSingletonContainer(self.model)
+        ls2.add(IMP.get_indexes(ps2))
+        
+        cpc = IMP.container.CloseBipartitePairContainer(
+            ls1, ls2, cutoff_distance, SLACK)
+        
+        # underlying pairs restraint with a soft sphere pair score
+        sf = IMP.core.SoftSpherePairScore(kappa)
+        self._restraint = IMP.container.PairsRestraint(sf, cpc)
+        
+        # workaround to have this show up in the trajectory RMF: interface
+        # through restraint sets
+        self._rs = IMP.RestraintSet(self.model, "LigandPairBindingScore_%s" \
+                                                 % self.label)
+        self._rs.add_restraint(self)
+    
+    def _estimate_intercept(self, ps1, ps2, kappa, scale):
+        """
+        Estimate the length of the intercept for the linear function
+        that modulates the strength of the restraint as a function of 
+        the average inter-ligand pair score.
+        
+        Args:
+        ps1 (list): Particles corresponding to selected residues of ligand 1.
+        
+        ps2 (list): Particles corresponding to selected residues of ligand 1.
+        
+        kappa (float): Strength of the pair score used in this restraint.
+        
+        scale (float): Factor that scales the average pair scores between
+        spheres of ligand 1 and ligand 2.
+
+        Returns:
+        (float): Scaled avg. inter-ligand-sphere pair score that is used
+        as intercept in the final linear scoring function.
+        """
+        
+        out = 0.0
+        for p1 in ps1:
+            for p2 in ps2:
+                r1 = IMP.core.XYZR(p1).get_radius()
+                r2 = IMP.core.XYZR(p2).get_radius()
+                out += 0.5*kappa*(r1+r2)*(r1+r2)
+        out /= (len(ps1) * len(ps2))
+        return scale * out
+    
+    def unprotected_evaluate(self, da):
+        """
+        Evaluate score for this restraint.
+
+        Args:
+        da (??): IMP DerivativeAccumulator object. This should **not** be
+        given any value when this function is called, since this is a 
+        **non-differentiable** restraint.
+
+        Raises:
+        NotImplementedError: When the derivative accumulator argument
+            is given a value. 
+
+        Returns:
+        (float): Weighted restraint score.
+        """
+        if da is not None:
+            raise NotImplementedError("Derivative Accumulator should be NULL")
+        x = self._restraint.unprotected_evaluate(da) - self.intercept
+        #if self.overlap: score = -self.slope*x if x <= 0 else 0.0 else: score =
+        #    self.slope*x if x >= 0 else 0.0
+        
+        # elegant shorter way to write the above
+        score = -(self.slope * x) * (self.overlap - np.heaviside(x,1))
+        
+        return self.weight*score
+        
+    def do_get_inputs(self):
+        """
+        Get input IMP particles for this restraint.
+        
+        Returns:
+        (list): IMP particles to which this restraint applies.
+        """
+        
+        return self._particles
+    
+    def add_to_model(self):
+        """
+        Add this restraint to the model object.
+        """
+        
+        IMP.pmi.tools.add_restraint_to_model(self.model, self._rs,
+                                             add_to_rmf=True)
+        
+    def set_weight(self, weight=1.0):
+        """
+        Set the weight factor for this restraint.
+
+        Args:
+        weight (float, optional): Restraint weight factor, relative to
+        other restraints in the system. Defaults to 1.0.
+        """
+        
+        self.weight = weight
+    
+    def get_output(self):
+        output = {}
+        score = self.unprotected_evaluate(None)
+        output["_TotalScore"] = str(score)
+        output["LigandPairBindingScore_" + self.label] = str(score)
+        return output
+    
         

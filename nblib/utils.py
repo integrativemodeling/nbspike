@@ -88,6 +88,22 @@ def get_epitope_restraint_label(receptor, ligand):
     return receptor + "_" + ligand
 
 
+def get_ligand_pair_binding_restraint_label(receptor, ligand1, ligand2):
+    """
+    Get label for inter-ligand pair binding restraint.
+    
+    Args:
+    receptor (str): Name of ligand molecule 1.
+    
+    ligand (str): Name of ligand molecule 2.
+
+    Returns:
+    (str): restraint label.
+    """
+    
+    return receptor + ":" + ligand1 + "_" + ligand2
+
+
 def read_XL_data(filename, r_offset=0):
     """
     Parse crosslink data from CSV file. Crosslink data files can only have
@@ -169,7 +185,33 @@ def read_escape_mutant_data(filename, r_offset=0):
             ligand_resids.extend(this_resids)   
 
         out.append((receptor_resname, receptor_resid, ligand_resids))
-        
+    
+    return out
+
+
+def read_ligand_pair_binding_data(filename):
+    """
+    Parse pairwise ligand (nanobody) binding data from CSV file. Pairwise
+    binding data may have only three columns:
+    <ligand 1 name>, <ligand 2 name>, <bind together or not?
+    where the last column is a boolean (0 or 1). Ligands that bind together (1)
+    share epitopes and/or have spatial overlaps. Ligands that don't bind 
+    together (0) have distinct overlaps and excluded volume interactions enforced between them.
+    
+    Args:
+    filename (str): CSV file containing inter-ligand competitive binding data.
+
+    Returns:
+    (list): Tuples of the form (ligand 1 name, ligand 2 name, bind together?)
+    """
+    
+    out = []
+    df = pd.read_csv(filename)
+    for i in range(len(df)):
+        this_df = df.iloc[i]
+        l1, l2 = this_df["ligand1"], this_df["ligand2"]
+        bind = this_df["bind"]
+        out.append((l1, l2, bind))
     return out
 
 
@@ -513,3 +555,20 @@ def get_surface(ps,
             of.write(s)
     
     return surface_indices, core_indices
+
+
+def set_initial_ligand_position_for_binary_docking(dof, dist=0.0):
+    rb_receptor, rb_ligand = dof.get_rigid_bodies()
+    
+    # translate to center of receptor
+    target_center = rb_receptor.get_coordinates() + \
+                    dist * IMP.algebra.get_random_vector_on_unit_sphere()
+    tr1 = target_center - rb_ligand.get_coordinates()
+    IMP.core.transform(rb_ligand, tr1)
+    
+    # provide a random rotation
+    rot = IMP.algebra.get_random_rotation_3d()
+    tr2 = IMP.algebra.get_rotation_about_point(target_center, rot)
+    IMP.core.transform(rb_ligand, tr2)
+    
+    

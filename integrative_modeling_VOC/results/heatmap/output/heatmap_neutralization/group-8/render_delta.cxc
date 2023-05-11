@@ -1,0 +1,19 @@
+open delta_heatmap.pdb
+
+hide
+~cartoon
+
+# render the interesting region of the NTD from the heatmapped model
+surface #1/A
+
+# render the heatmap
+color silver
+color bfactor #1/A:171,172,173,174,177,178,179,180,182,185,205,206,207,208,224 range 0,100 palette OrRd-5 ave residue
+
+# variant mutants
+color #1/A:19,222,158,452,478,614,681,950 navy target s
+
+# scene settings
+set bgColor white
+lighting soft
+graphics silhouettes true

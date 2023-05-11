@@ -3,13 +3,7 @@ Interface based clustering of docked nanobody models.
 """
 
 import os
-try:
-    import tqdm
-except ImportError:
-    # Fall back to regular range() if tqdm.trange() is not available
-    class MockModule: pass
-    tqdm = MockModule()
-    tqdm.trange = range
+import tqdm
 import itertools
 import pandas as pd
 import numpy as np
@@ -26,7 +20,6 @@ import RMF
 
 from . import epitopelib, utils
 from .graphics import RigidPDBWriter, plot_chimerax
-
 
 # pyRMSD calculator specs (no alignment needed)
 CALCTYPE = "NOSUP_OMP_CALCULATOR"

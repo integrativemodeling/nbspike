@@ -1,0 +1,15 @@
+open 6m0j.pdb
+hide
+~cartoon
+surface #1/E:333-526 
+color #1/E:333-526 silver target s
+
+# epitope
+color #1/E:346, 347, 348, 349, 350, 351, 352, 422, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 468, 469, 470, 471, 472, 481, 482, 483, 484, 485, 490, 491, 492, 493, 494, 495, 496, 497 goldenrod target s
+
+# scene settings
+set bgColor white
+lighting soft
+graphics silhouettes true
+
+

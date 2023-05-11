@@ -79,6 +79,11 @@ class RigidPDBWriter:
         self.pdb_res_receptor = residues[0]
         self.pdb_res_ligands = residues[1]
         
+        # receptor pdb can have missing residues, so filter those from rmf
+        for k, v in self.rmf_ps_receptor.items():
+            v_new = [v_ for v_ in v if not "bead" in v_.get_name()]
+            self.rmf_ps_receptor[k] = v_new
+        
     def set_frames(self, frames=None):
         """
         Specify a list of RMF frames. This ensures re-purposing one instance

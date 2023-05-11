@@ -1,0 +1,15 @@
+open 7ly3.A_modeller.pdb
+hide
+~cartoon
+surface #1/A
+color #1/A silver target s
+
+# epitope
+color #1/A:97, 123, 124, 125, 145, 150, 171, 172, 173, 174, 177, 178, 179, 180, 182, 185, 186, 187, 188, 190, 205, 206, 207, 208, 209, 210, 211, 224 goldenrod target s
+
+# scene settings
+set bgColor white
+lighting soft
+graphics silhouettes true
+
+

@@ -135,9 +135,9 @@ cpdef np.ndarray[BTYPE_t, ndim=2] get_epitope_pair(DTYPE_t [:, :, ::1] coords,
     return epitope_pair
 
 
-# ----------
-# FCC METRIC
-# ----------
+# ----------------------------
+# INTERFACE SIMILARITY METRICS
+# ----------------------------
 
 cdef inline DTYPE_t fcc(BTYPE_t [:] epitope_A,
                         BTYPE_t [:] epitope_B) nogil:
@@ -211,6 +211,42 @@ cdef inline DTYPE_t jaccard(BTYPE_t [:] epitope_A,
         c_AB += <DTYPE_t>(epitope_A[i] * epitope_B[i])
     
     return c_AB / (c_A + c_B - c_AB + EPS)
+
+
+cdef inline DTYPE_t sokal_michener(BTYPE_t [:] epitope_A, 
+                                   BTYPE_t [:] epitope_B,
+                                   DTYPE_t beta) nogil:
+    """
+    C-only function that calculates the Sokal-Michener distnace
+    between two alternate models of the receptor-ligand interface.
+    
+    Args:
+    epitope_A (1D array of numpy.int32s): Binary indicator array of whether
+    each receptor-ligand-receptor pair is an epitope or not, in model A.  
+    
+    epitope_B (1D array of numpy.int32s): Binary indicator array of whether
+    each receptor-ligand-receptor pair is an epitope or not, in model B.
+
+    beta (numpy.float32): Weight for the XOR operator in the Sokal-Michener
+    metric. Recommended value is 0.08.
+
+    Returns:
+    (numpy.float32) Sokal-Michener distance between receptor 
+    and ligand interfaces in models A and B.
+    """
+
+    cdef:
+        Py_ssize_t n_particles, i
+        DTYPE_t S_11, S_00
+    
+    n_particles = epitope_A.shape[0]
+    S_11 = 0.0
+    S_00 = 0.0
+
+    for i in range(n_particles):
+        S_11 += <DTYPE_t>(epitope_A[i] * epitope_B[i])
+        S_00 += fabs(1.0-<DTYPE_t>epitope_A[i]) * (1.0-<DTYPE_t>epitope_B[i])
+    return (S_11 + beta*S_00) / (<DTYPE_t>n_particles + EPS)
 
 
 # -------------------------

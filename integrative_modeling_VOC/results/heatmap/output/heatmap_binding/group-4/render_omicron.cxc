@@ -1,0 +1,23 @@
+open omicron_heatmap.pdb
+
+hide
+~cartoon
+
+# render the interesting region of the RBD from the heatmapped model
+surface #1/A
+
+# render the heatmap
+color silver
+color bfactor #1/A:449,453,455,456,472,473,475,476,477,478,479,480,481,482,483,484,485,486,487,488,489,490,491,492,493,494,505 range 0,100 palette OrRd-5 ave residue
+
+# variant mutants
+color #1/A:67,69,70,95,142,143,145,211,212,339,371,373,375,417,440,446,477,478,484,493,496,498,501,505,547,614,655,679,681,764,796,856,954,969,981 navy target s
+
+# glycan
+surface #1/*:NAG
+color #1/*:NAG dark slate grey
+
+# scene settings
+set bgColor white
+lighting soft
+graphics silhouettes true

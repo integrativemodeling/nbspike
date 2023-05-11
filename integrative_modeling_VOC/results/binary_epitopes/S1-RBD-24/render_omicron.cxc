@@ -1,0 +1,13 @@
+open 7t9k.pdb
+hide
+~cartoon
+surface #1/B:333-526
+color #1/B:333-526 silver target s
+
+# epitope
+color #1/B:369, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 390, 408, 411, 412, 414, 429 goldenrod target s 
+
+# scene settings
+set bgColor white
+lighting soft
+graphics silhouettes true

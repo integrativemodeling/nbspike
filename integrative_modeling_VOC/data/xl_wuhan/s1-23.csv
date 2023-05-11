@@ -1,0 +1,8 @@
+receptor,receptor_residue,ligand,ligand_residue
+rbd,444,s1-23,67
+rbd,462,s1-23,67
+rbd,458,s1-23,45
+rbd,444,s1-23,45
+rbd,462,s1-23,45
+rbd,417,s1-23,89
+rbd,444,s1-23,89

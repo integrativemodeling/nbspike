@@ -1,0 +1,13 @@
+open 7sbo.pdb
+hide
+~cartoon
+surface #1/A:333-526
+color #1/A:333-526 silver target s
+
+# epitope
+color #1/A:413, 414, 415, 416, 417, 420, 421, 424, 427, 428, 455, 458, 459, 460, 461, 462, 463, 465 goldenrod target s
+
+# scene settings
+set bgColor white
+lighting soft
+graphics silhouettes true
