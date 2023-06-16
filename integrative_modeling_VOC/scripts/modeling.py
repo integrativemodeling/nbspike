@@ -264,7 +264,7 @@ for r in restraint_list:
 
 # run replica exchange Monte-Carlo for the first time
 print("\nWARM-UP RUNS")
-rex1 = IMP.pmi.macros.ReplicaExchange0(m, root_hier,
+rex1 = IMP.pmi.macros.ReplicaExchange(m, root_hier,
                         monte_carlo_sample_objects=dof.get_movers(),
                         global_output_directory="./output_warmup",
                         output_objects=restraint_list,
@@ -285,7 +285,7 @@ rex1.execute_macro()
 
 # run replica exchange Monte-Carlo again
 print("\nPRODUCTION RUNS")
-rex2 = IMP.pmi.macros.ReplicaExchange0(m, root_hier,
+rex2 = IMP.pmi.macros.ReplicaExchange(m, root_hier,
                         monte_carlo_sample_objects=dof.get_movers(),
                         global_output_directory="output",
                         output_objects=restraint_list,
