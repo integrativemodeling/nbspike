@@ -14,7 +14,7 @@ from collections import OrderedDict
 
 from nblib import restraint_satisfaction as rs
 
-VARIANTS = ["wuhan", "delta", "omicron", "ba4"]
+VARIANTS = ["wuhan", "delta", "omicron", "ba4", "xbb", "bq"]
 
 # helper function to calculate restraint satisfaction for each cluster
 def _check_cluster(variant, nanobody, rmf_fn, 

@@ -1,0 +1,23 @@
+open bq_heatmap.pdb
+
+hide
+~cartoon
+
+# render the interesting region of the RBD from the heatmapped model
+surface #1/A
+
+# render the heatmap
+color silver
+color bfactor #1/A:369,370,373,374,375,376,377,378,379,380,381,382,383,384,385,404,405,406,407,408,409,411,412,413,414,415,431,432,433,434,435,437,439,499,500,501,502,503,504,505,506,508 range 0,100 palette OrRd-5 ave residue
+
+# variant mutants
+color #1/A:339,346,371,373,375,376,405,408,417,440,444,452,460,477,478,484,486,498,501,505 navy target s
+
+# glycan
+surface #1/*:NAG
+color #1/*:NAG dark slate grey
+
+# scene settings
+set bgColor white
+lighting soft
+graphics silhouettes true

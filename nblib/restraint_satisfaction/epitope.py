@@ -179,7 +179,7 @@ class Epitope(BaseSatisfaction):
         
         centroid_epitopes = OrderedDict()
         for i, l in enumerate(self.ligands):
-            indices = [np.bool(x) for x in epitopes[l][idx]]
+            indices = [bool(x) for x in epitopes[l][idx]]
             e = itertools.compress(receptor_residue_tuple, indices)
             centroid_epitopes[l] = list(e)
         return centroid_epitopes

@@ -1,0 +1,13 @@
+open 8iou.pdb
+hide
+~cartoon
+surface #1/A:333-526
+color #1/A:333-526 silver target s
+
+# epitope
+color #1/A:403, 405, 445, 446, 447, 449, 452, 453, 455, 470, 472, 482, 483, 484, 485, 486, 488, 489, 490, 491, 492, 493, 494, 495, 496, 498, 501, 502, 505 goldenrod target s 
+
+# scene settings
+set bgColor white
+lighting soft
+graphics silhouettes true

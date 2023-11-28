@@ -8,19 +8,19 @@ env.io.hetatm = False
 
 class MissingResiduesModel(loopmodel):
     def select_atoms(self):
-        # the missing regions in the structure are 72-73 and 179-186
-        # these residue ranges have been shifted to 57-58 and 164-171
-        # i.e. by a offset of -16, since MODELLER starts residue numbering from 1
-        return Selection(self.residue_range("57:A", "58:A"),
-                         self.residue_range("164:A", "171:A"))
+        # the missing regions in the structure are 373 and 517-522
+        # these residue ranges have been shifted to 2 and 185-190
+        # i.e. by a offset of -333 since MODELLER starts residue numbering from 1
+        return Selection(self.residue_range("373:E", "373:E"),
+                         self.residue_range("517:E", "522:E"))
 
     def special_patches(self, aln):
-         self.rename_segments(segment_ids=["A"], renumber_residues=[16])
-         
+        self.rename_segments(segment_ids=["E"], renumber_residues=[333])
+        
 
 a = MissingResiduesModel(env, alnfile="alignment.ali",
-                         knowns="7ly3.A",
-                         sequence="7ly3.A_fill",
+                         knowns="8fxc.E",
+                         sequence="8fxc.E_fill",
                          assess_methods=assess.DOPE,
                          loop_assess_methods=assess.DOPE)
 a.starting_model = 1

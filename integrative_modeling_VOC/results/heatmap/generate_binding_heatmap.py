@@ -4,7 +4,7 @@ import numpy as np
 from collections import OrderedDict
 from Bio.PDB import Chain, Model, PDBParser, PDBIO
 
-VARIANTS = ["delta", "omicron", "ba4"]
+VARIANTS = ["delta", "omicron", "ba4", "xbb", "bq"]
 REFERENCE_RBD_PDB_FILE = "pdb/6m0j.pdb"
 GROUPS = {
     1: ["S1-RBD-9", "S1-RBD-15", "S1-RBD-22", "S1-RBD-24", "S1-1"],
@@ -41,32 +41,58 @@ def _get_normalized_heatmap(data):
                     if "omicron_epitope" in v and "kd_omicron" in v}
     avg_ratio_omicron = _get_avg_affinity_ratio("omicron", omicron_data)
 
-    ba4_data = {k: v for k,v in data.items()
+    ba4_data = {k: v for k, v in data.items()
                 if "ba4_epitope" in v and "kd_ba4" in v}
     avg_ratio_ba4 = _get_avg_affinity_ratio("ba4", ba4_data)
 
+    xbb_data = {k: v for k, v in data.items()
+                if "xbb_epitope" in v and "kd_xbb" in v}
+    avg_ratio_xbb = _get_avg_affinity_ratio("xbb", xbb_data)
+    
+    bq_data = {k: v for k, v in data.items()
+               if "bq_epitope" in v and "kd_bq" in v}
+    avg_ratio_bq = _get_avg_affinity_ratio("bq", bq_data)
+    
     min_ratio = min(
         min(list(avg_ratio_delta.values())),
         min(list(avg_ratio_omicron.values())),
-        min(list(avg_ratio_ba4.values()))
+        min(list(avg_ratio_ba4.values())),
+        min(list(avg_ratio_xbb.values())),
+        min(list(avg_ratio_bq.values()))
     )
 
     max_ratio = max(
         max(list(avg_ratio_delta.values())),
         max(list(avg_ratio_omicron.values())),
-        max(list(avg_ratio_ba4.values()))
+        max(list(avg_ratio_ba4.values())),
+        max(list(avg_ratio_xbb.values())),
+        max(list(avg_ratio_bq.values()))
     )
 
     heatmap_delta = {k: 100 * (v-min_ratio) / (max_ratio-min_ratio)
                      for k, v in avg_ratio_delta.items()}
     
     heatmap_omicron = {k: 100 * (v-min_ratio) / (max_ratio-min_ratio)
-                    for k,v in avg_ratio_omicron.items()}
+                    for k, v in avg_ratio_omicron.items()}
     
     heatmap_ba4 = {k: 100 * (v-min_ratio) / (max_ratio-min_ratio)
-                    for k,v in avg_ratio_ba4.items()}
+                    for k, v in avg_ratio_ba4.items()}
 
-    return {"delta": heatmap_delta, "omicron": heatmap_omicron, "ba4": heatmap_ba4}
+    heatmap_xbb = {k: 100 * (v-min_ratio) / (max_ratio-min_ratio)
+                    for k, v in avg_ratio_xbb.items()}
+    
+    heatmap_bq = {k: 100 * (v-min_ratio) / (max_ratio-min_ratio)
+                    for k, v in avg_ratio_bq.items()}
+
+    result = {
+        "delta": heatmap_delta, 
+        "omicron": heatmap_omicron, 
+        "ba4": heatmap_ba4,
+        "xbb": heatmap_xbb,
+        "bq": heatmap_bq
+    }
+
+    return result
 
 
 def main(group_id, variant, data, normalized_heatmap, outdir):

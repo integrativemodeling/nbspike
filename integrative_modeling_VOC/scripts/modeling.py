@@ -19,7 +19,7 @@ import IMP.pmi.tools
 from nblib import restraints, utils
 
 # variants covered in this repository
-VARIANTS = ["wuhan", "delta", "omicron", "ba4"]
+VARIANTS = ["wuhan", "delta", "omicron", "ba4", "xbb", "bq"]
 
 import numpy as np
 np.random.seed = int(10000 * np.random.random())

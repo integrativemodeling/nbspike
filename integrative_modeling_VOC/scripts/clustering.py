@@ -12,7 +12,7 @@ import argparse
 from nblib import InterfaceCluster
 
 READ_FREQ = 10
-VARIANTS = ["wuhan", "delta", "omicron", "ba4"]
+VARIANTS = ["wuhan", "delta", "omicron", "ba4", "xbb", "bq"]
 
 # read and parse user input
 parser = argparse.ArgumentParser(description=__doc__,
