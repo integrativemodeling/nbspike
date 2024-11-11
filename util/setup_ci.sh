@@ -11,7 +11,7 @@ fi
 python_version=$1
 
 # get conda-forge, not main, packages
-conda config --remove channels defaults
+conda config --remove channels defaults || :
 conda config --add channels conda-forge
 IMP_CONDA="imp"
 
