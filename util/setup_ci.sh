@@ -7,4 +7,4 @@ IMP_CONDA="imp"
 
 eval "$(conda shell.bash hook)"
 conda activate test
-conda create --yes -q numpy pandas matplotlib biopython networkx scikit-learn hdbscan tqdm cython setuptools ${IMP_CONDA}
+conda install --yes -q numpy pandas matplotlib biopython networkx scikit-learn hdbscan tqdm cython setuptools ${IMP_CONDA}
